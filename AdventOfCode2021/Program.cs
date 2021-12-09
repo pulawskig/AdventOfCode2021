@@ -1,4 +1,6 @@
 ﻿using AdventOfCode2021;
+using System.Diagnostics;
+using System.Text;
 
 await Day1.SolvePart1();
 await Day1.SolvePart2();
@@ -16,3 +18,5 @@ await Day7.SolvePart1();
 await Day7.SolvePart2();
 await Day8.SolvePart1();
 await Day8.SolvePart2();
+await Day9.SolvePart1();
+await Day9.SolvePart2();
