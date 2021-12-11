@@ -77,5 +77,10 @@
                 return min;
             }
         }
+
+        public static TSource Median<TSource>(this IEnumerable<TSource> source)
+        {
+            return source.OrderBy(x => x).Skip(source.Count() / 2).First();
+        }
     }
 }
