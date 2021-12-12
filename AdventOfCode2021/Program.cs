@@ -24,3 +24,5 @@ await Day10.SolvePart1();
 await Day10.SolvePart2();
 await Day11.SolvePart1();
 await Day11.SolvePart2();
+await Day12.SolvePart1();
+await Day12.SolvePart2();
