@@ -1,41 +1,38 @@
-﻿using System.Diagnostics;
-
-namespace AdventOfCode2021
+﻿namespace AdventOfCode2021
 {
     public class Day14
     {
         public static async Task SolvePart1()
         {
-            //var inputs = await File.ReadAllLinesAsync("Day14/Day14Input.txt");
+            var inputs = await File.ReadAllLinesAsync("Day14/Day14Input.txt");
 
-            //var template = inputs[0];
-            //var rules = inputs.Skip(2).ToDictionary(line => line.Substring(0, 2), line => line.Last().ToString());
+            var template = inputs[0];
+            var rules = inputs.Skip(2).ToDictionary(line => line.Substring(0, 2), line => line.Last().ToString());
 
-            //for (var i = 0; i < 10; i++)
-            //{
-            //    template = template
-            //        .Take(template.Length - 1)
-            //        .Zip(template.Skip(1))
-            //        .Join(rules, pair => pair, rule => (rule.Key[0], rule.Key[1]), (pair, rule) => $"{pair.First}{rule.Value}{pair.Second}")
-            //        .Aggregate("A", (a, b) => a.Substring(0, a.Length - 1) + b);
-            //}
+            for (var i = 0; i < 10; i++)
+            {
+                template = template
+                    .Take(template.Length - 1)
+                    .Zip(template.Skip(1))
+                    .Join(rules, pair => pair, rule => (rule.Key[0], rule.Key[1]), (pair, rule) => $"{pair.First}{rule.Value}{pair.Second}")
+                    .Aggregate("A", (a, b) => a.Substring(0, a.Length - 1) + b);
+            }
 
-            //var counts = template
-            //    .GroupBy(ch => ch)
-            //    .Select(g => g.Count())
-            //    .OrderByDescending(count => count)
-            //    .ToArray();
+            var counts = template
+                .GroupBy(ch => ch)
+                .Select(g => g.Count())
+                .OrderByDescending(count => count)
+                .ToArray();
 
-            //var count = counts[0] - counts[counts.Length - 1];
+            var count = counts[0] - counts[counts.Length - 1];
 
-            //Console.WriteLine($"Day 14 part 1: {count}");
+            Console.WriteLine($"Day 14 part 1: {count}");
         }
 
         public static async Task SolvePart2()
         {
             var inputs = await File.ReadAllLinesAsync("Day14/Day14Input.txt");
 
-            var stopwatch = Stopwatch.StartNew();
             var template = inputs[0];
             var rules = inputs
                 .Skip(2)
@@ -81,9 +78,8 @@ namespace AdventOfCode2021
             }
 
             var count = letterCounts.Max(x => x.Value) - letterCounts.Where(x => x.Value > 0).Min(x => x.Value);
-            stopwatch.Stop();
 
-            Console.WriteLine($"Day 14 part 2: {count} - {stopwatch.ElapsedTicks} ticks");
+            Console.WriteLine($"Day 14 part 2: {count}");
         }
 
         private class PolymerPair
