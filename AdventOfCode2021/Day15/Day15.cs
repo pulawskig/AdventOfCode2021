@@ -44,56 +44,47 @@ namespace AdventOfCode2021
 
         private static Node DoTheDijkstra(Node[][] inputs)
         {
-            var stopwatch = Stopwatch.StartNew();
-            try
+            inputs[0][0].Distance = 0;
+            var queue = new List<Node>();
+            queue.Add(inputs[0][0]);
+
+            while (queue.Count > 0)
             {
-                inputs[0][0].Distance = 0;
-                var queue = new List<Node>();
-                queue.Add(inputs[0][0]);
+                var current = queue.MinBy(x => x.Distance);
+                queue.Remove(current);
 
-                while (queue.Count > 0)
+                if (current.Position.X == inputs.Length - 1 && current.Position.Y == inputs[0].Length - 1)
                 {
-                    var current = queue.MinBy(x => x.Distance);
-                    queue.Remove(current);
-
-                    if (current.Position.X == inputs.Length - 1 && current.Position.Y == inputs[0].Length - 1)
-                    {
-                        return current;
-                    }
-
-                    var neighbours = new List<Node>();
-
-                    if (current.Position.X > 0)
-                        neighbours.Add(inputs[current.Position.X - 1][current.Position.Y]);
-                    if (current.Position.X < inputs.Length - 1)
-                        neighbours.Add(inputs[current.Position.X + 1][current.Position.Y]);
-                    if (current.Position.Y > 0)
-                        neighbours.Add(inputs[current.Position.X][current.Position.Y - 1]);
-                    if (current.Position.Y < inputs[0].Length - 1)
-                        neighbours.Add(inputs[current.Position.X][current.Position.Y + 1]);
-
-                    foreach (var neighbour in neighbours)
-                    {
-                        var dist = current.Distance + neighbour.Value;
-
-                        if (dist < neighbour.Distance)
-                        {
-                            neighbour.Distance = dist;
-                            neighbour.Previous = current.Position;
-
-                            if (!queue.Contains(neighbour))
-                                queue.Add(neighbour);
-                        }
-                    }
+                    return current;
                 }
 
-                return null;
+                var neighbours = new List<Node>();
+
+                if (current.Position.X > 0)
+                    neighbours.Add(inputs[current.Position.X - 1][current.Position.Y]);
+                if (current.Position.X < inputs.Length - 1)
+                    neighbours.Add(inputs[current.Position.X + 1][current.Position.Y]);
+                if (current.Position.Y > 0)
+                    neighbours.Add(inputs[current.Position.X][current.Position.Y - 1]);
+                if (current.Position.Y < inputs[0].Length - 1)
+                    neighbours.Add(inputs[current.Position.X][current.Position.Y + 1]);
+
+                foreach (var neighbour in neighbours)
+                {
+                    var dist = current.Distance + neighbour.Value;
+
+                    if (dist < neighbour.Distance)
+                    {
+                        neighbour.Distance = dist;
+                        neighbour.Previous = current.Position;
+
+                        if (!queue.Contains(neighbour))
+                            queue.Add(neighbour);
+                    }
+                }
             }
-            finally
-            {
-                stopwatch.Stop();
-                Console.WriteLine($"{stopwatch.ElapsedMilliseconds} ms");
-            }
+
+            return null;
         }
 
         public class Node
