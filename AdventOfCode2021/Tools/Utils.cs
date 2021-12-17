@@ -82,5 +82,13 @@
         {
             return source.OrderBy(x => x).Skip(source.Count() / 2).First();
         }
+
+        public static bool IsBetween(this int item, int first, int second)
+        {
+            var start = Math.Min(first, second);
+            var end = Math.Max(first, second);
+
+            return item >= start && item <= end;
+        }
     }
 }

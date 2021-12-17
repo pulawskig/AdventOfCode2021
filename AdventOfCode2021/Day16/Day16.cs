@@ -24,7 +24,7 @@ namespace AdventOfCode2021
                 { 'F', "1111" },
             };
 
-    public static async Task SolvePart1()
+        public static async Task SolvePart1()
         {
             var input = string.Join(string.Empty,
                 (await File.ReadAllLinesAsync("Day16/Day16Input.txt"))[0]
@@ -164,7 +164,7 @@ namespace AdventOfCode2021
 
             public BigInteger Calculate()
             {
-                switch(Type)
+                switch (Type)
                 {
                     case Types.Value:
                         return Value ?? BigInteger.Zero;
